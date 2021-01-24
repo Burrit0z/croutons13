@@ -61,13 +61,17 @@
 
     // if its nil, try the other options
     if(!iconImage) {
-
+        NSString *imageName;
         if([[currentCrumbContext valueForKey:@"_wasFromSpotlight"] boolValue]) {
             // spotlight
-            iconImage = [UIImage systemImageNamed:@"magnifyingglass"];
+            imageName = @"magnifyingglass";
         } else if([[currentCrumbContext valueForKey:@"_wasFromAssistant"] boolValue]) {
             // assistant/siri
-            iconImage = [UIImage systemImageNamed:@"person.circle"];
+            imageName = @"person.circle";
+        }
+
+        if(@available(iOS 13, *)) {
+            iconImage = [UIImage systemImageNamed:imageName];
         }
 
         // so we can color it white, return template render
